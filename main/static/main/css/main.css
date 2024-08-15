@@ -1,7 +1,19 @@
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('/static/main/fonts/BebasNeue Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Dumka';
+    src: url('/static/main/fonts/Dumka.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
 .navbar {
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(3px);
-    box-shadow: 0 10px 50px 0 rgba(234, 198, 98, 0.5); /* Усиленное свечение */
+    box-shadow: 0 10px 50px 0 rgba(234, 198, 98, 0.5); 
     padding-right: 35px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     background-color: black;
@@ -103,12 +115,12 @@ h1{
     display: block;
     text-align: center;
     width: 100%;
-    padding-top: 8vh;
+    padding-top: 7vh;
     text-decoration: none;
     color: aliceblue;
     font-family: "Bebas Neue";
-    font-weight: 400;
-    font-style: normal;
+    font-weight: 300;
+    font-style: bold;
     font-size: 120px;
     position: relative;
 }
@@ -128,7 +140,7 @@ h4{
     display: block;
     text-align: center;
     width: 100%;
-    padding-top: 25vh;
+    padding-top: 28vh;
     text-decoration: none;
     color: rgb(228, 228, 228);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -230,7 +242,7 @@ h4{
     position: relative;
     left: 0;
     width: 70px;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 2px;
     height: 70px;
     background-color: white;
@@ -253,12 +265,203 @@ h4{
 
 
 .category-item img {
+    border-radius: 15px;
     width: 100%; 
     height: auto; 
     display: block;
+    box-shadow: 0 10px 50px 0 rgba(41, 47, 50, 0.5);
 }
 
 
 .category-item:hover {
     flex: 1.3;
+}
+
+.carousel {
+    position: relative;
+    z-index: 1;
+    height: 140vh;
+    overflow: hidden;
+    pointer-events: none;
+    padding-top: 2rem;
+  }
+.carousel h2{
+    text-decoration: #000000;
+    font-family: "Bebas Neue";
+}
+
+  .carousel-item {
+    --items: 10;
+    --width: clamp(150px, 30vw, 300px);
+    --height: clamp(200px, 40vw, 400px);
+    --x: calc(var(--active) * 800%);
+    --y: calc(var(--active) * 200%);
+    --rot: calc(var(--active) * 120deg);
+    --opacity: calc(var(--zIndex) / var(--items) * 3 - 2);
+    overflow: visible;
+    position: absolute;
+    z-index: var(--zIndex);
+    width: var(--width);
+    height: var(--height);
+    margin: calc(var(--height) * -0.5) 0 0 calc(var(--width) * -0.5);
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transform-origin: 0% 100%;
+    box-shadow: 0 10px 50px 10px rgba(0, 0, 0, 0.5);
+    background: black;
+    pointer-events: all;
+    transform: translate(var(--x), var(--y)) rotate(var(--rot));
+    transition: transform 0.8s cubic-bezier(0, 0.02, 0, 1);
+  }
+
+  .carousel-item .carousel-box {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.8s cubic-bezier(0, 0.02, 0, 1);
+    opacity: var(--opacity);
+    font-family: "Orelo-sw-db", serif;
+  }
+
+  .carousel-item .carousel-box:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5));
+  }
+
+  .carousel-item .title {
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    bottom: 20px;
+    left: 20px;
+    transition: opacity 0.8s cubic-bezier(0, 0.02, 0, 1);
+    font-size: clamp(20px, 3vw, 30px);
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .carousel-item .num {
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    top: 10px;
+    left: 20px;
+    transition: opacity 0.8s cubic-bezier(0, 0.02, 0, 1);
+    font-size: clamp(20px, 10vw, 80px);
+  }
+
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+
+.contacts{
+    height: 90vh;
+    width: 100vw;
+    background-color: #434343;
+}
+.contacts h3{
+    color: #fff;
+    font-family: 'Dumka';
+    font-weight: 200;
+    font-size: 5rem;
+    text-align: center;
+    padding-top: 20vh;
+}
+.contacts h5{
+    color: #ffffff;
+    font-family: 'Calibri';
+    font-weight: 400;
+    font-size: 2rem;
+    text-align: center;
+    margin-top: -10vh;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .button{
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  margin: 20vh 5px 0 5px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:hover{
+  width: 160px;
+}
+.wrapper .button .icon{
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 50px;
+  box-sizing: border-box;
+  line-height: 60px;
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:nth-child(1):hover .icon{
+  background: #4267B2;
+}
+.wrapper .button:nth-child(2):hover .icon{
+  background: #1DA1F2;
+}
+.wrapper .button:nth-child(3):hover .icon{
+  background: #E1306C;
+}
+.wrapper .button:nth-child(4):hover .icon{
+  background: #ff0000;
+}
+.wrapper .button .icon i{
+  font-size: 25px;
+  line-height: 60px;
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:hover .icon i{
+  color: #fff;
+}
+.wrapper .button span{
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 60px;
+  margin-left: 10px;
+  transition: all 0.3s ease-out;
+  font-family: 'Bebas Neue';
+}
+.wrapper .button:nth-child(1) span{
+  color: #4267B2;
+}
+.wrapper .button:nth-child(2) span{
+  color: #1DA1F2;
+}
+.wrapper .button:nth-child(3) span{
+  color: #E1306C;
+}
+.wrapper .button:nth-child(4) span{
+  color: #ff0000;
 }
