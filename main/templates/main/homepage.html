@@ -1,0 +1,41 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="intro-section">
+        <h1>UrbanInteriors</h1>
+        <h4>Discover timeless elegance and comfort with our exclusive collection. <br> Transform your space into a stylish haven with furniture that reflects your unique taste.</h4>
+        <div class="text-box">
+            <a href="#" class="btn btn-white btn-animate">Store</a>
+        </div>
+    </div>
+    <div class="animate">
+    <div class="categories-section">
+        <h2>Categories</h2>
+        <h4>Simplicity, Distinction, Quality, and Only the Finest Natural Materials.</h4>
+        <div class="categories-container">
+            <div class="category-item">
+                <a href="/category/living-room">
+                    <img src="/static/main/img/living-room.jpeg" alt="Living Room">
+                </a>
+            </div>
+            <div class="category-item">
+                <a href="/category/bedroom">
+                    <img src="/static/main/img/bedroom.jpeg" alt="Bedroom">
+                </a>
+            </div>
+            <div class="category-item">
+                <a href="/category/office">
+                    <img src="/static/main/img/office.jpeg" alt="Office">
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+</div>
+{% endblock %}
