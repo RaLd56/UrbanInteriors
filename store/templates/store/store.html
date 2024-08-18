@@ -1,0 +1,80 @@
+{% extends 'store/store_layout.html' %}
+{% load static %}
+
+{% block title %}
+Store
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="banner-wrapper">
+        <div class="banner-container">
+            <img class="banner" src="{% static 'main/img/banner.png' %}" alt="Banner">
+        </div>
+    </div>
+    <div class="product-grid-wrapper">
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image" style='background-image: url("/static/main/img/bedroom.jpeg");'></div>
+                <div class="product-details">
+                    <p class="product-price">Starting at $299.99</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style='background-image: url("/static/main/img/living-room.jpeg");'></div>
+                <div class="product-details">
+                    <p class="product-price">Starting at $199.99</p>
+                </div>
+            </div>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image" style='background-image: url("/static/main/img/office.jpeg")'></div>
+                <div class="product-details">
+                    <p class="product-price">Starting at $119.99</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style='background-image: url("/static/main/img/dinner.jpeg");'></div>
+                <div class="product-details">
+                    <p class="product-price">Starting at $199.99</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="just-in-section">
+    <h2 class="section-title">Just In</h2>
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="product-image" style='background-image: url("https://cdn.usegalileo.ai/stability/26f2b663-7633-4b5d-b26f-b4a12ad0b582.png");'></div>
+            <div class="product-details">
+                <h2 class="product-title">New Sofa</h2>
+                <p class="product-price">$349.99</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image" style='background-image: url("https://cdn.usegalileo.ai/stability/a561f5b5-c5bb-4bc7-b3e1-29b96f7d7f8f.png");'></div>
+            <div class="product-details">
+                <h2 class="product-title">Stylish Chair</h2>
+                <p class="product-price">$229.99</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image" style='background-image: url("https://cdn.usegalileo.ai/stability/0012a8ff-31a2-4d96-a2de-7c1f6e0648d5.png");'></div>
+            <div class="product-details">
+                <h2 class="product-title">Modern Table</h2>
+                <p class="product-price">$139.99</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image" style='background-image: url("https://cdn.usegalileo.ai/stability/676d3eb2-df06-4a6f-8f83-5c5df43c572b.png");'></div>
+            <div class="product-details">
+                <h2 class="product-title">Luxurious Bed</h2>
+                <p class="product-price">$699.99</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,4 +1,5 @@
 {% extends 'main/layout.html' %}
+{% load static %}
 
 {% block title %}
 Homepage
@@ -20,17 +21,17 @@ Homepage
         <div class="categories-container">
             <div class="category-item">
                 <a href="/category/living-room">
-                    <img src="/static/main/img/living-room.jpeg" alt="Living Room">
+                    <img src="{% static 'main/img/living-room.jpeg'%}" alt="Living Room">
                 </a>
             </div>
             <div class="category-item">
                 <a href="/category/bedroom">
-                    <img src="/static/main/img/bedroom.jpeg" alt="Bedroom">
+                    <img src="{% static 'main/img/bedroom.jpeg'%}" alt="Bedroom">
                 </a>
             </div>
             <div class="category-item">
                 <a href="/category/office">
-                    <img src="/static/main/img/office.jpeg" alt="Office">
+                    <img src="{% static 'main/img/office.jpeg'%}" alt="Office">
                 </a>
             </div>
         </div>
@@ -45,7 +46,7 @@ Homepage
             <div class="title">Echo Nest</div>
             <div class="num">01</div>
             <img
-              src="/static/main/img/echo-nest.jpeg" />
+              src="{% static 'main/img/echo-nest.jpeg'%}" />
           </div>
         </div>
     
@@ -54,7 +55,7 @@ Homepage
             <div class="title">Aurora Lounge</div>
             <div class="num">02</div>
             <img
-              src="/static/main/img/aurora-lounge.jpeg" />
+              src="{% static 'main/img/aurora-lounge.jpeg'%}" />
           </div>
         </div>
     
@@ -63,7 +64,7 @@ Homepage
             <div class="title">Verve</div>
             <div class="num">03</div>
             <img
-              src="/static/main/img/verve.jpeg" />
+              src="{% static 'main/img/verve.jpeg'%}" />
           </div>
         </div>
     
@@ -72,7 +73,7 @@ Homepage
             <div class="title">Horizon</div>
             <div class="num">04</div>
             <img
-              src="/static/main/img/horizon.jpeg" />
+              src="{% static 'main/img/horizon.jpeg'%}" />
           </div>
         </div>
     
@@ -81,7 +82,7 @@ Homepage
             <div class="title">Prism</div>
             <div class="num">05</div>
             <img
-              src="/static/main/img/prism.jpeg" />
+              src="{% static 'main/img/prism.jpeg'%}" />
           </div>
         </div>
     
@@ -90,7 +91,7 @@ Homepage
             <div class="title">Whisper</div>
             <div class="num">06</div>
             <img
-              src="/static/main/img/whisper.jpeg" />
+              src="{% static 'main/img/whisper.jpeg'%}" />
           </div>
         </div>
     
@@ -99,7 +100,7 @@ Homepage
             <div class="title">Orbit</div>
             <div class="num">07</div>
             <img
-              src="/static/main/img/orbit.jpeg" />
+              src="{% static 'main/img/orbit.jpeg'%}" />
           </div>
         </div>
     
@@ -108,7 +109,7 @@ Homepage
             <div class="title">Nimbus</div>
             <div class="num">08</div>
             <img
-              src="/static/main/img/Nimbus.jpeg" />
+              src="{% static 'main/img/Nimbus.jpeg'%}" />
           </div>
         </div>
     
@@ -117,7 +118,7 @@ Homepage
             <div class="title">Nova</div>
             <div class="num">09</div>
             <img
-              src="/static/main/img/Nova.jpeg" />
+              src="{% static 'main/img/Nova.jpeg'%}" />
           </div>
         </div>
         <div class="carousel-item">
@@ -125,11 +126,33 @@ Homepage
             <div class="title">Echo</div>
             <div class="num">10</div>
             <img
-              src="/static/main/img/Echo.jpeg" />
+              src="{% static 'main/img/Echo.jpeg'%}" />
           </div>
         </div>
       </div>
-      <div class="contacts">
+      <div class="responsive-container-block bigContainer">
+        <div class="responsive-container-block Container">
+          <div class="responsive-container-block leftSide">
+            <p class="text-blk heading">
+                Welcome to UrbanInteriors, where design meets comfort.
+            </p>
+            <p class="text-blk subHeading">
+                At UrbanInteriors, we believe that your home should be a reflection of your unique style and personality. That's why we offer a curated selection of high-quality furniture that combines innovative design with exceptional craftsmanship. Whether you're furnishing a cozy apartment or a spacious home, our pieces are crafted to bring beauty, functionality, and comfort to every room.
+            </p>
+          </div>
+          <div id="about" class="responsive-container-block rightSide">
+            <img class="number1img" src="{% static 'main/img/designer.jpeg' %}">
+            <img class="number2img" src="{% static 'main/img/shipping.jpeg' %}">
+            <img class="number3img" src="{% static 'main/img/desk.jpeg' %}">
+            <img class="number5img" src="{% static 'main/img/warehouse.jpeg' %}">
+            <iframe allowfullscreen="allowfullscreen" class="number4vid" src="https://www.youtube.com/embed/dQw4w9WgXcQ">
+            </iframe>
+            <img class="number7img" src="{% static 'main/img/childrensroom.jpeg' %}">
+            <img class="number6img" src="{% static 'main/img/chair.jpeg' %}">
+          </div>
+        </div>
+      </div>
+      <div id ="contacts" class="contacts">
       <h3>+1 234 567 89 10</h3>
     <h5>contact@urbaninteriors.com</h5>
       <div class="wrapper">

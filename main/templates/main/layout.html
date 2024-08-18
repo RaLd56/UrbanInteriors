@@ -8,17 +8,16 @@
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
     <div class="navbar">
         <img class="logo" src="{% static 'main/img/logo.svg' %}">
         <ul>
-            <li><a href="#" class="menu">Home</a></li>
-            <li><a href="#" class="menu">Store</a></li>
-            <li><a href="#" class="menu">About</a></li>
-            <li><a href="#" class="menu">Contacts</a></li>
+            <li><a href="{% url 'homepage' %}" class="menu">Home</a></li>
+            <li><a href="{% url 'store' %}" class="menu">Store</a></li>
+            <li><a href="#about" class="menu">About</a></li>
+            <li><a href="#contacts" class="menu">Contacts</a></li>
 </ul>
 </div>
 <main>
