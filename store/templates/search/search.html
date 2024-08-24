@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% if query %}
+        <p>You searched for: <strong>{{ query }}</strong></p>
+    {% endif %}
+
+    {% if page.object_list %}
+        <ul>
+            {% for result in page.object_list %}
+                <li>{{ result.object.name }} - {{ result.object.price }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>

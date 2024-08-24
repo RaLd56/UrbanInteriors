@@ -1,0 +1,12 @@
+{% extends 'store/store_layout.html' %}
+{% load static %}
+
+{% block title %}
+Logout
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h4>You have been logged out</h4>
+{% endif %}
+{% endblock %}

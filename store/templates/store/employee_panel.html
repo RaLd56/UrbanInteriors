@@ -1,0 +1,15 @@
+{% extends 'store/store_layout.html' %}
+{% load static %}
+
+{% block title %}
+Employee page
+{% endblock %}
+
+{% block content %}
+<div class="registration-background"></div>
+<div class="content">
+    <a href="{% url 'add_good' %}" class="button-link">Add a good</a>
+    <a href="{% url 'delete_good' %}" class="button-link">Delete a good</a>
+    <a href="{% url 'report' %}" class="button-link">Get a report</a>
+</div>
+{% endblock %}

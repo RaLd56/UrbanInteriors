@@ -1,0 +1,22 @@
+{% extends 'store/store_layout.html' %}
+{% load static %}
+
+{% block title %}
+Employee page
+{% endblock %}
+
+{% block content %}
+<div class="registration-background"></div>
+<div class="addgood_panel">
+{% for good in goods %}
+<p>{{ good }}</p>
+{% endfor %}
+<p><br></p>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-custom btn-block w-100">Continue</button>
+    </form>
+</div>
+
+{% endblock %}

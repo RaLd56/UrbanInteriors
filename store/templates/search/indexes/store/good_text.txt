@@ -1,0 +1,6 @@
+{{ object.name }}
+{{ object.description }}
+{{ object.category }}
+{{ object.color }}
+{{ object.style }}
+{{ object.materials }}

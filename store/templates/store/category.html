@@ -1,0 +1,23 @@
+{% extends 'store/store_layout.html' %}
+{% load static %}
+
+{% block title %}
+Category Page
+{% endblock %}
+
+{% block content %}
+<div class="category-content">
+    {% for item in category_items %}
+    <div class="product-container-categories">
+        <a href="{% url 'product_detail' item.id %}" class="product-link-categories">
+            <div class="product-image-categories" style="background-image: url('{{ item.img.url }}');"></div>
+            <div class="product-details-categories">
+                <h2 class="product-title-categories">{{ item.name }}</h2>
+                <p class="product-description-categories">{{ item.description }}</p>
+                <p class="product-price-categories">{{ item.price }}$</p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

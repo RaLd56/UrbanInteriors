@@ -1,0 +1,61 @@
+{% extends 'store/store_layout.html' %}
+{% load static %}
+
+{% block title %}
+Product Page
+{% endblock %}
+
+{% block content %}
+<div class="product-container">
+    <div class="product-image" style="background-image: url('{{ product.img.url }}');"></div>
+    <div class="product-details">
+        <h2 class="product-title">{{ product.name }}</h2>
+        <p class="product-description">{{ product.description }}</p>
+        <button id="add-to-cart-button" class="button-link">Add to Cart for {{ product.price }}$</button>
+    </div>
+    <div id="response" style="margin-top: 20px;"></div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#add-to-cart-button').click(function(){
+            const button = $(this);
+            $.ajax({
+                url: "{% url 'add_to_cart' %}",
+                type: "POST",
+                data: {
+                    'product_id': '{{ product.id }}',
+                    'quantity': 1,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+
+
+                        // Анимация изменения стиля и текста кнопки
+                        button.animate({backgroundColor: "#28a745", color: "#fff"}, 300);
+                        button.text("Successfully Added");
+
+                        // Возвращение кнопки в исходное состояние через 2 секунды
+                        setTimeout(function() {
+                            button.animate({backgroundColor: "#007bff", color: "#fff"}, 300);
+                            button.text("Add to Cart for {{ product.price }}$");
+                        }, 1000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error adding product to cart');
+                    button.animate({backgroundColor: "#fff", color: "#fff"}, 300);
+                    button.text("Error while adding. Try again later");
+                    setTimeout(function() {
+                        button.animate({backgroundColor: "#007bff", color: "#fff"}, 300);
+                        button.text("Add to Cart for {{ product.price }}$");
+                    }, 1000);
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

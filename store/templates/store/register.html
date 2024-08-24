@@ -1,0 +1,18 @@
+{% extends 'store/store_layout.html' %}
+{% load static %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block content %}
+<div class="registration-background"></div>
+<div class="register-container">
+    <h2>Register</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-custom btn-block w-100">Register</button>
+    </form>
+</div>
+{% endblock %}

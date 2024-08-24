@@ -12,16 +12,26 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="stylesheet" href="{% static 'main/css/store.css' %}" />
+    
   </head>
   <body>
     <div class="design-root">
       <div>
         <div class="navbar">
-          <div class="search-bar">
-              <input class="search-bar-input" type="text" placeholder="Search for furniture" />
-          </div>
+            <div class="search-bar">
+                <form id="searchForm" method="get" action="{% url 'haystack_search' %}">
+                    <input class="search-bar-input" type="text" name="q" placeholder="Search for furniture" />
+                </form>
+                <button type="button" class="search-button" onclick="document.getElementById('searchForm').submit();">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M10,2a8,8,0,1,0,5.293,14.293l4.414,4.414a1,1,0,0,0,1.414-1.414l-4.414-4.414A8,8,0,0,0,10,2Zm0,2a6,6,0,1,1-6,6A6.00681,6.00681,0,0,1,10,4Z"/>
+                    </svg>
+                </button>
+            </div>
+            
+            
           <div class="navbar-links">
-              <a href="#" class="footer-link active">
+              <a href="{% url 'homepage' %}" class="footer-link" id='link-home' onClick="currentPage()">
                   <div class="footer-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                           <path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path>
@@ -29,7 +39,7 @@
                   </div>
                   <p class="footer-text">Home</p>
               </a>
-              <a href="#" class="footer-link">
+              <a href="{% url 'store' %}" class="footer-link" id='link-categories' onClick="currentPage()">
                   <div class="footer-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                           <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
@@ -37,26 +47,124 @@
                   </div>
                   <p class="footer-text">Categories</p>
               </a>
-              <a href="#" class="footer-link">
-                  <div class="footer-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                          <path d="M178,32c-20.65,0-38.73,8.88-50,23.89C116.73,40.88,98.65,32,78,32A62.07,62.07,0,0,0,16,94c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,220.66,240,164,240,94A62.07,62.07,0,0,0,178,32ZM128,206.8C109.74,196.16,32,147.69,32,94A46.06,46.06,0,0,1,78,48c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,147.61,146.24,196.15,128,206.8Z"></path>
-                      </svg>
-                  </div>
-                  <p class="footer-text">Favorites</p>
-              </a>
-              <a href="#" class="footer-link">
+              {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="footer-link" id='link-profile' onClick="currentPage()">
                   <div class="footer-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                           <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path>
                       </svg>
                   </div>
-                  <p class="footer-text">Me</p>
+                  <p class="footer-text">Profile</p>
               </a>
+              {% else %}
+              <a href="#" id="openAuthModal" class="footer-link">
+                <div class="footer-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path>
+                    </svg>
+                </div>
+                <p class="footer-text">Sign In</p>
+            {% endif %}
+            </a>
           </div>
       </div>
       </div>
     </div>
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Login</h2>
+            <!-- Форма входа -->
+            <form method="POST" id="loginForm" class="auth-form">
+                {% csrf_token %}
+                {{ login_form.as_p }}
+                <button type="submit" name="login">Login</button>
+            </form>
+            <!-- Ссылка на регистрацию -->
+            <p>Don't have an account? <a href="{% url 'register' %}" >Register here</a></p>
+        </div>
+    </div>
+<script>
+// Открытие модального окна
+function openModal() {
+    if (registration != true){
+    document.getElementById("authModal").style.display = "block";
+    }
+}
+
+// Закрытие модального окна
+function closeModal() {
+    document.getElementById("authModal").style.display = "none";
+}
+
+// Переключение между формами входа и регистрации
+function toggleForms() {
+    var loginForm = document.getElementById("loginForm");
+    var registerForm = document.getElementById("registerForm");
+    var toggleFormLinks = document.querySelectorAll(".toggle-form");
+
+    loginForm.style.display = loginForm.style.display === "none" ? "block" : "none";
+    registerForm.style.display = registerForm.style.display === "none" ? "block" : "none";
+    
+    toggleFormLinks.forEach(function(link) {
+        link.style.display = link.style.display === "none" ? "block" : "none";
+    });
+}
+
+window.onload = function() {
+    title = document.title
+    switch (title) {
+        case 'Store':
+            linkId = 'link-categories';
+            registration=false
+            break;
+        case 'Profile':
+            linkId = 'link-profile';
+            registration=false
+            break;
+        case 'Favorites':
+            linkId = 'link-favorites';
+            registration=false
+            break;
+        case 'Register':
+            registration=true
+            break;
+        case 'Logout':
+            registration=true;
+            break
+    }
+    if (linkId) {
+        document.getElementById(linkId).style.color = "white";
+        localStorage.setItem('activeLink', linkId);
+    }
+};
+
+
+
+// События для открытия и закрытия модального окна
+document.getElementById('openAuthModal').addEventListener('click', function(e) {
+    e.preventDefault(); // Предотвращает переход по ссылке
+    openModal();
+});
+
+document.querySelector('.close-button').addEventListener('click', closeModal);
+document.querySelector('#showRegisterForm').addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleForms();
+});
+document.querySelector('#showLoginForm').addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleForms();
+});
+
+// Закрытие модального окна при клике вне его
+window.addEventListener('click', function(event) {
+    if (event.target === document.getElementById('authModal')) {
+        closeModal();
+    }
+});
+
+</script>    
     {% block content %}
     {% endblock %}
   </body>

@@ -1,0 +1,98 @@
+{% extends 'store/store_layout.html' %}
+{% load static %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+<div class="profile-content">
+    <h2 class="cart-header">Your Cart:</h2>
+    {% if not cart_items %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+    <div class="cart-items-container">
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <div class="cart-product-image" style="background-image: url('{{ item.product.img.url }}');"></div>
+            <div class="cart-item-details">
+                <p class="cart-item-name">{{ item.product.name }}</p>
+                <p class="cart-item-price">{{ item.price }}$ x {{ item.quantity }}</p>
+                <div class="quantity-controls">
+                    <button class="quantity-button" data-action="decrease" data-item-id="{{ item.id }}">-</button>
+                    <span class="quantity-display">{{ item.quantity }}</span>
+                    <button class="quantity-button" data-action="increase" data-item-id="{{ item.id }}">+</button>
+                </div>
+                <button class="delete-button" data-item-id="{{ item.id }}">Delete Item</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="cart-summary">
+        <button class="summary-button">{{ total_price }}$</button>
+    </div>
+    {% if is_in_group %}
+    <a href="{% url 'employee_panel' %}" class="button-link">Employee Panel</a>
+    {% endif %}
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="button-link">Logout</button>
+    </form>
+</div>
+
+<!-- Add JavaScript at the bottom -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Handle quantity change
+        $('.quantity-button').click(function() {
+            var itemId = $(this).data('item-id');
+            var action = $(this).data('action');
+            $.ajax({
+                url: "{% url 'update_cart_item' %}",
+                type: "POST",
+                data: {
+                    'item_id': itemId,
+                    'action': action,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    // Update quantity display and total price
+                    if (response.status == 'success') {
+                        $('button[data-item-id="' + itemId + '"]').siblings('.quantity-display').text(response.new_quantity);
+                        $('.summary-button').text(response.total_price + '$');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error updating quantity');
+                }
+            });
+        });
+
+        // Handle item deletion
+        $('.delete-button').click(function() {
+            var itemId = $(this).data('item-id');
+            $.ajax({
+                url: "{% url 'delete_cart_item' %}",
+                type: "POST",
+                data: {
+                    'item_id': itemId,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        // Remove item from the DOM and update total price
+                        $('button[data-item-id="' + itemId + '"]').closest('.cart-item').remove();
+                        $('.summary-button').text(response.total_price + '$');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error deleting item');
+                }
+            });
+        });
+    });
+</script>
+
+
+{% endblock %}
