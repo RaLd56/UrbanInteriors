@@ -680,3 +680,18 @@ form input[type="text"] {
   background-color: #0056b3;
   border-color: #0056b3;
 }
+
+
+.search-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 10vh auto 0 auto
+}
+.search-content h5 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+

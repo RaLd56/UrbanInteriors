@@ -1,23 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Search Results</title>
-</head>
-<body>
-    <h1>Search Results</h1>
+{% extends 'store/store_layout.html' %}
+{% block title %}
+Search Results
+{% endblock %}
+
+{% block content %}
+    <div class="search-content">
     {% if query %}
-        <p>You searched for: <strong>{{ query }}</strong></p>
     {% endif %}
 
     {% if page.object_list %}
-        <ul>
             {% for result in page.object_list %}
-                <li>{{ result.object.name }} - {{ result.object.price }}</li>
+            <div class="product-container-categories">
+                <a href="{% url 'product_detail' result.object.id %}" class="product-link-categories">
+                    <div class="product-image-categories" style="background-image: url('{{ result.object.img.url }}');"></div>
+                    <div class="product-details-categories">
+                        <h2 class="product-title-categories">{{ result.object.name }}</h2>
+                        <p class="product-description-categories">{{ result.object.description }}</p>
+                        <p class="product-price-categories">{{ result.object.price }}$</p>
+                    </div>
+                </a>
+            </div>
             {% endfor %}
-        </ul>
     {% else %}
-        <p>No results found.</p>
+        <p style="color:azure">No results found.</p>
     {% endif %}
-</body>
-</html>
+    </div>
+{% endblock %}
+
+
