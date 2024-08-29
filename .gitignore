@@ -1,0 +1,12 @@
+__pycache__/
+db.sqlite3
+
+.env
+
+
+.vscode/
+.idea/
+*.suo
+*.ntvs_analysis.dat
+*.njsproj
+*.sln

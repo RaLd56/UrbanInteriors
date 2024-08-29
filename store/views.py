@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect,  get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, CustomUserCreationForm, EmployeeLogin, AddGoodForm, DeleteGoodForm, SearchQuery
+from .forms import LoginForm, CustomUserCreationForm, EmployeeLogin, AddGoodForm, DeleteGoodForm, SearchQuery, PlaceOrder
 from django.contrib import messages
 from store.models import Key, Good, Order, OrderItem
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import user_passes_test
 from django.http import JsonResponse
+from dadata import Dadata
+import re
+import os
+
+DA_DATA_TOKEN = os.getenv('DA_DATA_TOKEN')
+DA_DATA_SECRET = os.getenv('DA_DATA_SECRET')
+YOOMONEY_RECEIVER = os.getenv('YOOMONEY_RECEIVER')
 
 
 def in_employee_group(user):
@@ -208,3 +215,78 @@ def search(request):
         results = Good.objects.filter(name__icontains=query)  # Поиск по полю name
 
     return render(request, 'search_results.html', {'form': form, 'results': results})
+
+@login_required
+def place_order(request):
+    # Получаем текущего пользователя
+    user = request.user
+
+    # Логика для получения или создания заказа
+    order = Order.objects.filter(user=user, status='PENDING').first()
+
+    if not order:
+        # Если нет открытых заказов, создаем новый
+        order = Order(user=user)
+        order.save()
+
+    # Обновляем сумму заказа
+    order.update_total_price()
+
+    if request.method == 'POST':
+        form = PlaceOrder(request.POST)
+        if form.is_valid():
+            address = form.cleaned_data['address']
+            phone_number = form.cleaned_data.get('phone_number')
+
+            # Проверка номера телефона
+            pattern = r'^\+7\d{10}$'
+            if not re.match(pattern, phone_number):
+                error_message = "Invalid phone number format. Use +7XXXXXXXXXX."
+                return render(request, 'store/place_order.html', {
+                    'form': form,
+                    'error_message': error_message
+                })
+
+            # Проверка адреса через Dadata API
+            token = DA_DATA_TOKEN 
+            secret = DA_DATA_SECRET
+            dadata = Dadata(token, secret)
+            try:
+                result = dadata.clean("address", address)
+                if result.get('qc') == 0:  # Адрес найден
+                    found_address = result.get('result')
+
+                    # Подготовка данных для оплаты
+                    receiver = YOOMONEY_RECEIVER  
+                    payment_label = f"ORDER-{order.id}"  # Используем идентификатор заказа для метки
+                    sum_amount = order.total_price  # Сумма заказа из модели Order
+
+                    return render(request, 'store/place_order.html', {
+                        'form': form,
+                        'found_address': found_address,
+                        'receiver': receiver,
+                        'payment_label': payment_label,
+                        'sum_amount': sum_amount
+                    })
+
+                else:  # Адрес не найден
+                    error_message = "There is no such address."
+                    return render(request, 'store/place_order.html', {
+                        'form': form,
+                        'error_message': error_message
+                    })
+
+            except Exception as e:
+                print(f"Ошибка при обращении к Dadata API: {e}")
+                error_message = "An error occurred while processing your request."
+                return render(request, 'store/place_order.html', {
+                    'form': form,
+                    'error_message': error_message
+                })
+
+    else:
+        form = PlaceOrder()
+
+    return render(request, 'store/place_order.html', {'form': form})
+
+

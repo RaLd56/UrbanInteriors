@@ -21,12 +21,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#ahso963*uqs*ek5tiryj$f=^qul+*vahxi88^w0m=@i5wh0cg'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default-secret-key')
+DA_DATA_TOKEN = os.getenv('DA_DATA_TOKEN')
+DA_DATA_SECRET = os.getenv('DA_DATA_SECRET')
+YOOMONEY_RECEIVER = os.getenv('YOOMONEY_RECEIVER')
+
+if not all([DA_DATA_TOKEN, DA_DATA_SECRET, YOOMONEY_RECEIVER]):
+    raise ValueError("One or more environment variables are missing.")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['a1023984.xsph.ru', '141.8.192.163', '127.0.0.1']
 
 
 # Application definition
@@ -139,3 +146,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+LOGOUT_REDIRECT_URL = 'store'

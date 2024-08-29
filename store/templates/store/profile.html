@@ -29,7 +29,9 @@ Profile
         {% endfor %}
     </div>
     <div class="cart-summary">
-        <button class="summary-button">{{ total_price }}$</button>
+        <form action="{% url 'place_order' %}" method="get">
+            <button type="submit" class="summary-button">{{ total_price }}$</button>
+        </form>
     </div>
     {% if is_in_group %}
     <a href="{% url 'employee_panel' %}" class="button-link">Employee Panel</a>
@@ -40,7 +42,7 @@ Profile
     </form>
 </div>
 
-<!-- Add JavaScript at the bottom -->
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {

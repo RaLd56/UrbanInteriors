@@ -1,0 +1,47 @@
+{% extends 'store/store_layout.html' %}
+{% load static %}
+
+{% block title %}
+Place Order
+{% endblock %}
+
+{% block content %}
+<div class="place_order">
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if error_message %}
+            <div class="alert alert-danger">
+                {{ error_message }}
+            </div>
+        {% endif %}
+
+        {% if found_address %}
+            <div class="alert alert-info">
+                Adress recognised as <strong>{{ found_address }}</strong>
+            </div>
+        {% else %}
+            <button type="submit" class="btn btn-custom btn-block w-100">Place order</button>
+        {% endif %}
+    </form>
+
+    {% if found_address and not error_message %}
+    <hr>
+    <h4>Payment Information</h4>
+    <form method="POST" action="https://yoomoney.ru/quickpay/confirm">
+        <input type="hidden" name="receiver" value="{{ receiver }}"/>
+        <input type="hidden" name="label" value="{{ payment_label }}"/>
+        <input type="hidden" name="quickpay-form" value="button"/>
+        <input type="hidden" name="sum" value="{{ sum_amount }}" data-type="number"/>
+        <label>
+            <input type="radio" name="paymentType" value="PC" checked/> ЮMoney
+        </label>
+        <label>
+            <input type="radio" name="paymentType" value="AC"/> Банковской картой
+        </label>
+        <input type="submit" value="Перевести" class="btn btn-custom btn-block w-100"/>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

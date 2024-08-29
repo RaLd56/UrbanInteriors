@@ -6,7 +6,7 @@ from haystack.views import SearchView
 urlpatterns = [
     path('', views.store, name="store"),
     path('profile', views.profile, name="profile"),
-    path('logout', auth_views.LogoutView.as_view(template_name='store/logout.html'), name='logout'),
+    path('logout', auth_views.LogoutView.as_view(), name='logout'),
     path('register/', views.register, name='register'),
     path('employee', views.employee, name='employee'),
     path('employee_panel', views.employee_panel, name='employee_panel'),
@@ -19,6 +19,6 @@ urlpatterns = [
     path('update-cart-item/', views.update_cart_item, name='update_cart_item'),
     path('delete-cart-item/', views.delete_cart_item, name='delete_cart_item'),
     path('search/', SearchView(), name='haystack_search'),
-
+    path('place_order', views.place_order, name='place_order')
 ]
 

@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Good
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Row, Column, Field
+import re
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -95,3 +96,7 @@ class DeleteGoodForm(forms.Form):
 class SearchQuery(forms.Form):
     query = forms.CharField(max_length=30)
 
+
+class PlaceOrder(forms.Form):
+    address = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone_number = forms.CharField(max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
